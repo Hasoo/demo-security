@@ -2,37 +2,37 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hasoo.sample.mapper.AuthMapper">
-	<select id="findByEmail" resultType="User" parameterType="String">
-		select * from users where email = #{email}
-	</select>
-	<select id="findByRole" resultType="Role" parameterType="String">
-		select * from roles where role = #{role}
-	</select>
-	<insert id="addRole">
-		insert into user_role(
-			  user_id
-			, role_id
-			)
-		values(
-			  #{param1}
-			, #{param2}  
-			)
-	</insert> 
-	<insert id="saveUser" parameterType="User">
-		insert into users(
-			  active
-			, email
-			, last_name
-			, name
+<mapper namespace="com.example.demo.security.AuthMappper">
+	
+	<resultMap type="com.example.demo.security.Account" id="accountMap">
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="groupname" column="groupname"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="whiteip" column="whiteip"/>
+		<result property="fee" column="fee"/>
+		<result property="accountNonExpired" column="account_non_expired"/>
+		<result property="accountNonLocked" column="account_non_locked"/>
+		<result property="credentialsNonExpired" column="credentials_non_expired"/>
+		<result property="enabled" column="enabled"/>
+	</resultMap>
+
+	<select id="findAccountByUsername" parameterType="String" resultMap="accountMap">
+		select
+			  username
 			, password
-			)
-		values(
-			  #{active}
-			, #{email}
-			, #{lastName}
-			, #{name}
-			, #{password}
-			)
-	</insert>
+			, groupname
+			, name
+			, email
+			, whiteip
+			, fee
+			, account_non_expired
+			, account_non_locked
+			, credentials_non_expired
+		from account where username = #{username}
+	</select>
+	<select id="findRolesByUsername" resultType="AccountRoles" parameterType="String">
+		select * from account_roles where username = #{username}
+	</select>
 </mapper>
