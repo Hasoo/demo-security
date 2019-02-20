@@ -27,16 +27,14 @@
 		</rollingPolicy>
 	</appender>
 
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="SAVE-TO-FILE" />
 	</root>
 
-<!--
-	<logger name="com.example.demo.security" additivity="false" level="debug">
+	<logger name="com.example.demo" additivity="false" level="debug">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="SAVE-TO-FILE" />
 	</logger>
--->
 
 </configuration>

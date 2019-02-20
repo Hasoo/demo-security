@@ -20,7 +20,7 @@ import com.example.demo.security.CustomWebAuthenticationDetailsSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private UserDetailsService userDetailsService;
+  private UserDetailsService accountService;
 
   @Autowired
   private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
@@ -33,14 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/").permitAll()
         .antMatchers("/login").permitAll()
         .antMatchers("/register").permitAll()
-        .antMatchers("/home/**").hasAuthority("ADMIN")
+        .antMatchers("/home/**").hasAuthority("USER")
         .anyRequest().authenticated()
         .and()
       .formLogin()
         .loginPage("/login")
         .failureUrl("/login?error=true")
         .defaultSuccessUrl("/home", true)
-        .usernameParameter("email")
+        .usernameParameter("username")
         .passwordParameter("password")
         .authenticationDetailsSource(authenticationDetailsSource)
         .and()
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
     CustomAuthenticationProvider authenticationProvider = new CustomAuthenticationProvider();
-    authenticationProvider.setUserDetailsService(userDetailsService);
+    authenticationProvider.setUserDetailsService(accountService);
     authenticationProvider.setPasswordEncoder(passwordEncoder());
     return authenticationProvider;
   }

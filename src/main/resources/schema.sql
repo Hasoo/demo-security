@@ -1,8 +1,7 @@
-DROP TABLE IF EXISTS `account`;
-CREATE TABLE `account` (
+CREATE TABLE IF NOT EXISTS `account` (
   `groupname` varchar(255) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `whiteip` varchar(255) DEFAULT NULL,
@@ -14,10 +13,9 @@ CREATE TABLE `account` (
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `account_roles`;
-CREATE TABLE `account_roles` (
+CREATE TABLE IF NOT EXISTS `account_roles` (
   `username` varchar(255) NOT NULL,
-  `role` varchar(255) DEFAULT NULL,
+  `role` varchar(255) NOT NULL,
   KEY `FKtp61eta5i06bug3w1qr6286uf` (`username`),
-  CONSTRAINT `FKtp61eta5i06bug3w1qr6286uf` FOREIGN KEY (`username) REFERENCES `account` (`username`)
+  CONSTRAINT `FKtp61eta5i06bug3w1qr6286uf` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
