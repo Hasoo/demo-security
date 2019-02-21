@@ -26,6 +26,7 @@ public class Account implements UserDetails {
   private String whiteip;
 
   private double fee;
+  private int failureCount;
 
   private boolean accountNonExpired;
   private boolean accountNonLocked;

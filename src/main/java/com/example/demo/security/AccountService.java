@@ -11,24 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountService implements UserDetailsService {
 
   @Autowired
-  AuthMapper authMapper;
+  SecurityMapper securityMapper;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Account account = authMapper.findAccountByUsername(username).orElseThrow(
+    Account account = securityMapper.findAccountByUsername(username).orElseThrow(
         () -> new UsernameNotFoundException(String.format("Username[%s] not found", username)));
 
-    account.setRoles(authMapper.findRolesByUsername(username));
+    account.setRoles(securityMapper.findRolesByUsername(username));
 
     return account;
   }
 
-  void saveAccount(Account account) {
-    authMapper.saveAccount(account);
+  public void saveAccount(Account account) {
+    securityMapper.saveAccount(account);
   }
 
   public Account findAccountByUsername(String username) throws UsernameNotFoundException {
-    Account account = authMapper.findAccountByUsername(username).orElseThrow(
+    Account account = securityMapper.findAccountByUsername(username).orElseThrow(
         () -> new UsernameNotFoundException(String.format("Username[%s] not found", username)));
 
     return account;

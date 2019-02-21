@@ -10,7 +10,7 @@ public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
 
   public CustomWebAuthenticationDetails(HttpServletRequest request) {
     super(request);
-    otpCode = request.getParameter("otp_code");
+    otpCode = request.getParameter("otpcode");
   }
 
   public String getOtpCode() {

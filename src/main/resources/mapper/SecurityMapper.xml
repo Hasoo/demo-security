@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.security.AuthMapper">
+<mapper namespace="com.example.demo.security.SecurityMapper">
 	
 	<resultMap type="com.example.demo.security.Account" id="accountMap">
 		<result property="username" column="username"/>
@@ -12,6 +12,7 @@
 		<result property="email" column="email"/>
 		<result property="whiteip" column="whiteip"/>
 		<result property="fee" column="fee"/>
+		<result property="failureCount" column="failure_count"/>
 		<result property="accountNonExpired" column="account_non_expired"/>
 		<result property="accountNonLocked" column="account_non_locked"/>
 		<result property="credentialsNonExpired" column="credentials_non_expired"/>
@@ -27,6 +28,7 @@
 			, email
 			, whiteip
 			, fee
+			, failure_count
 			, account_non_expired
 			, account_non_locked
 			, credentials_non_expired
@@ -80,8 +82,20 @@
 		)
 	</insert>
 
-	<delete id="deleteAccountRoles">
+	<delete id="deleteAccountRoles" parameterType="String">
 		delete from account_roles where username = #{username} and role = #{role}
 	</delete>
+	
+	<select id="findFailureCountByUsername" resultType="int" parameterType="String">
+		select failure_count from account where username = #{username}
+	</select>
+	
+	<update id="updateFailureCount">
+		update account set failure_count = #{count} where username = #{username}
+	</update>
+
+	<update id="updateFailureCountPlusOne" parameterType="String">
+		update account set failure_count = failure_count+1 where username = #{username}
+	</update>
 
 </mapper>

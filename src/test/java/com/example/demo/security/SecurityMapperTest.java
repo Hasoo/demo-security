@@ -18,10 +18,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class AuthMapperTest {
+public class SecurityMapperTest {
 
   @Autowired
-  private AuthMapper authMapper;
+  private SecurityMapper securityMapper;
 
   PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -30,16 +30,17 @@ public class AuthMapperTest {
     String username = "hasoo";
     String password = "test";
 
-    authMapper.saveAccount(Account.builder().username(username)
+    securityMapper.saveAccount(Account.builder().username(username)
         .password(passwordEncoder.encode(password)).groupname("TEST").fee(11).enabled(true)
         .credentialsNonExpired(true).accountNonExpired(true).accountNonLocked(true).build());
 
-    Account account = authMapper.findAccountByUsername(username)
+    Account account = securityMapper.findAccountByUsername(username)
         .orElseThrow(() -> new RuntimeException("no exist account"));
     assertEquals(username, account.getUsername());
     assertThat(passwordEncoder.matches(password, account.getPassword()));
   }
 
+  @SuppressWarnings("unchecked")
   @Test
   public void findAccountRolesTest() {
     String username = "hasoo";
@@ -47,14 +48,14 @@ public class AuthMapperTest {
     String role1 = "USER1";
     String role2 = "USER2";
 
-    authMapper.saveAccount(Account.builder().username(username)
+    securityMapper.saveAccount(Account.builder().username(username)
         .password(passwordEncoder.encode(password)).groupname("TEST").fee(11).enabled(true)
         .credentialsNonExpired(true).accountNonExpired(true).accountNonLocked(true).build());
 
-    authMapper.saveAccountRoles(username, role1);
-    authMapper.saveAccountRoles(username, role2);
+    securityMapper.saveAccountRoles(username, role1);
+    securityMapper.saveAccountRoles(username, role2);
 
-    List<AccountRoles> accountRoles = authMapper.findAccountRolesByUsername(username);
+    List<AccountRoles> accountRoles = securityMapper.findAccountRolesByUsername(username);
 
     assertThat(accountRoles,
         Matchers.containsInAnyOrder(Matchers.hasProperty("role", Matchers.is(role1)),
@@ -68,14 +69,14 @@ public class AuthMapperTest {
     String role1 = "USER1";
     String role2 = "USER2";
 
-    authMapper.saveAccount(Account.builder().username(username)
+    securityMapper.saveAccount(Account.builder().username(username)
         .password(passwordEncoder.encode(password)).groupname("TEST").fee(11).enabled(true)
         .credentialsNonExpired(true).accountNonExpired(true).accountNonLocked(true).build());
 
-    authMapper.saveAccountRoles(username, role1);
-    authMapper.saveAccountRoles(username, role2);
+    securityMapper.saveAccountRoles(username, role1);
+    securityMapper.saveAccountRoles(username, role2);
 
-    List<String> roles = authMapper.findRolesByUsername(username);
+    List<String> roles = securityMapper.findRolesByUsername(username);
 
     assertTrue(roles.contains(role1));
     assertTrue(roles.contains(role2));
@@ -87,16 +88,42 @@ public class AuthMapperTest {
     String password = "testpwd";
     String role = "USER";
 
-    authMapper.saveAccount(Account.builder().username(username)
+    securityMapper.saveAccount(Account.builder().username(username)
         .password(passwordEncoder.encode(password)).groupname("TEST").fee(11).enabled(true)
         .credentialsNonExpired(true).accountNonExpired(true).accountNonLocked(true).build());
 
-    authMapper.saveAccountRoles(username, role);
+    securityMapper.saveAccountRoles(username, role);
 
-    authMapper.deleteAccountRoles(username, role);
+    securityMapper.deleteAccountRoles(username, role);
 
-    List<AccountRoles> accountRoles = authMapper.findAccountRolesByUsername(username);
+    List<AccountRoles> accountRoles = securityMapper.findAccountRolesByUsername(username);
 
     assertThat(null == accountRoles);
   }
+
+  @Test
+  public void failureCountTest() {
+    String username = "hasoo";
+    String password = "testpwd";
+
+    securityMapper.saveAccount(Account.builder().username(username)
+        .password(passwordEncoder.encode(password)).groupname("TEST").fee(11).enabled(true)
+        .credentialsNonExpired(true).accountNonExpired(true).accountNonLocked(true).build());
+
+    int count = 1;
+    securityMapper.updateFailureCount(username, count++);
+    securityMapper.updateFailureCount(username, count++);
+    securityMapper.updateFailureCount(username, count);
+
+    assertEquals(count, (securityMapper.findFailureCountByUsername(username).orElse(0)).intValue());
+
+    securityMapper.updateFailureCount(username, 0);
+
+    for (int i = 1; i < 3;) {
+      securityMapper.updateFailureCountPlusOne(username);
+      assertEquals(i, (securityMapper.findFailureCountByUsername(username).orElse(0)).intValue());
+      i++;
+    }
+  }
+
 }
