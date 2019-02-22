@@ -11,9 +11,9 @@ public class LoginFailureCountProvider {
 
   public boolean isExceed(String username) {
     if (failureCountRepository.get(username) < maxCount) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   public void success(String username) {

@@ -54,7 +54,9 @@
         </div>
         <div align="center" th:if="${param.error}">
           <!--<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>-->
-          <p style="font-size: 20; color: #FF1C19;">Username or Password invalid, please verify</p>
+          <!--<p style="font-size: 20; color: #FF1C19;">Username or Password invalid, please verify</p>-->
+					
+          <p style="font-size: 20; color: #FF1C19;" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}"/>
         </div>
         <div class="clearfix">
           <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>

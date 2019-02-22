@@ -17,6 +17,7 @@ public class AuthenticationListener implements ApplicationListener<AbstractAuthe
   public void onApplicationEvent(AbstractAuthenticationEvent event) {
 
     if (event instanceof AuthenticationSuccessEvent) {
+      event.getAuthentication().getPrincipal();
       loginFailureCountProvider.success(event.getAuthentication().getName());
     } else if (event instanceof AuthenticationFailureBadCredentialsEvent) {
       loginFailureCountProvider.failure(event.getAuthentication().getName());

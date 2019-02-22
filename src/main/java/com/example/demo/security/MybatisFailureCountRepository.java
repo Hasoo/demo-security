@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MybatisFailureCountRepository implements FailureCountRepository {
 
   @Autowired
-  SecurityMapper securityMapper;
+  private SecurityMapper securityMapper;
 
   @Override
   public int get(String username) {

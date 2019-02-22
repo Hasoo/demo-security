@@ -20,3 +20,11 @@ CREATE TABLE IF NOT EXISTS `account_roles` (
   KEY `FKtp61eta5i06bug3w1qr6286uf` (`username`),
   CONSTRAINT `FKtp61eta5i06bug3w1qr6286uf` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `history_log` (
+  `type` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `ip` varchar(255) NOT NULL,
+  `memo` varchar(255) NOT NULL,
+  `res_date` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

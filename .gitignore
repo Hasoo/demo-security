@@ -27,3 +27,4 @@
 ### Hasoo ###
 /logs/
 .attach_pid*
+*.swp
