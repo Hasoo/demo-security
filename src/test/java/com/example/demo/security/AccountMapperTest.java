@@ -14,14 +14,17 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.example.demo.dto.Account;
+import com.example.demo.dto.AccountRoles;
+import com.example.demo.mapper.AccountMapper;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class SecurityMapperTest {
+public class AccountMapperTest {
 
   @Autowired
-  private SecurityMapper securityMapper;
+  private AccountMapper securityMapper;
 
   PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.security.SecurityMapper">
+<mapper namespace="com.example.demo.mapper.AccountMapper">
 	
-	<resultMap type="com.example.demo.security.Account" id="accountMap">
+	<resultMap type="com.example.demo.dto.Account" id="accountMap">
 		<result property="username" column="username"/>
 		<result property="password" column="password"/>
 		<result property="groupname" column="groupname"/>

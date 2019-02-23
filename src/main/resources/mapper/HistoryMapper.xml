@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.security.HistoryLogMapper">
+<mapper namespace="com.example.demo.mapper.HistoryLogMapper">
 	
 	<insert id="saveHistoryLog" parameterType="HistoryLog">
 		insert into history_log (
@@ -20,8 +20,8 @@
 		)
 	</insert>
 	
-	<select id="findAll" resultType="HistoryLog">
-		select * from history_log
+	<select id="findByUsername" resultType="HistoryLog" parameterType="String">
+		select * from history_log where username = #{username}
 	</select>
 
 </mapper>

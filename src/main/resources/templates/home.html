@@ -8,7 +8,12 @@
   <title>Home</title>
 </head>
 <body>
+
   <div layout:fragment="content">
+
+		<div sec:authorize="hasRole('USER')">
+			<h3>Your role is USER</h3>
+		</div>
   
     <h1>Login Success</h1>
     <a th:href="@{/logout}">logout</a>

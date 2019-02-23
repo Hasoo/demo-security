@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.example.demo.security.FailureCountRepository;
-import com.example.demo.security.LoginFailureCountProvider;
-import com.example.demo.security.MybatisFailureCountRepository;
+import com.example.demo.failure.FailureCountRepository;
+import com.example.demo.failure.LoginFailureCountProvider;
+import com.example.demo.failure.MybatisFailureCountRepository;
 
 @Configuration
 public class LoginFailureCountConfig {

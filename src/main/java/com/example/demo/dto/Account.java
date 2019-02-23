@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.example.demo.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of = "username")
 public class Account implements UserDetails {
   private static final long serialVersionUID = 1L;
 

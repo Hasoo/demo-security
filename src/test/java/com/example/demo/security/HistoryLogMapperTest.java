@@ -2,15 +2,15 @@ package com.example.demo.security;
 
 import static org.junit.Assert.assertThat;
 import java.util.Date;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.hamcrest.beans.HasProperty;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.example.demo.dto.HistoryLog;
+import com.example.demo.mapper.HistoryLogMapper;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
@@ -24,7 +24,7 @@ public class HistoryLogMapperTest {
   public void historyLogTest() {
 
     final String type = "LOGIN";
-    final String username = "test";
+    final String username = "xxxx";
     final String ip = "127.0.0.1";
     final String memo = "tesst memo";
     final Date resDate = new Date();
@@ -32,7 +32,7 @@ public class HistoryLogMapperTest {
     historyLogMapper.saveHistoryLog(HistoryLog.builder().type(type).username(username).ip(ip)
         .memo(memo).resDate(resDate).build());
 
-    HistoryLog historyLog = historyLogMapper.findAll();
+    HistoryLog historyLog = historyLogMapper.findByUsername(username);
 
     assertThat(historyLog, Matchers.hasProperty("type", Matchers.equalTo(type)));
     assertThat(historyLog, Matchers.hasProperty("username", Matchers.equalTo(username)));

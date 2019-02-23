@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `email` varchar(255) DEFAULT NULL,
   `whiteip` varchar(255) DEFAULT NULL,
   `fee` double(11,2) NOT NULL,
-	`failure_count` int(11) DEFAULT 0,
+  `failure_count` int(11) DEFAULT 0,
   `enabled` bit(1) NOT NULL,
   `credentials_non_expired` bit(1) NOT NULL,
   `account_non_locked` bit(1) NOT NULL,

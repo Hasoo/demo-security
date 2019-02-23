@@ -1,11 +1,12 @@
-package com.example.demo.security;
+package com.example.demo.failure;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.mapper.AccountMapper;
 
 public class MybatisFailureCountRepository implements FailureCountRepository {
 
   @Autowired
-  private SecurityMapper securityMapper;
+  private AccountMapper securityMapper;
 
   @Override
   public int get(String username) {

@@ -5,6 +5,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import com.example.demo.failure.LoginFailureCountProvider;
 
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 

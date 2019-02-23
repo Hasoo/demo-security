@@ -1,12 +1,14 @@
-package com.example.demo.security;
+package com.example.demo.mapper;
 
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import com.example.demo.dto.Account;
+import com.example.demo.dto.AccountRoles;
 
 @Mapper
-public interface SecurityMapper {
+public interface AccountMapper {
   Optional<Account> findAccountByUsername(String username);
 
   List<AccountRoles> findAccountRolesByUsername(String username);

@@ -5,13 +5,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.example.demo.dto.Account;
+import com.example.demo.mapper.AccountMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class AccountService implements UserDetailsService {
 
   @Autowired
-  SecurityMapper securityMapper;
+  AccountMapper securityMapper;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

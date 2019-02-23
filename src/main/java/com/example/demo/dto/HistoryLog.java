@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.example.demo.dto;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
